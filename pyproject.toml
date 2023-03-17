@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "pyproject"
+version = "0.0.1"
+description = "Pyproject PoC"
+authors = ["Milenio Team <dev@milenio.capital>"]
+
+# https://python-poetry.org/docs/dependency-specification
+[tool.poetry.dependencies]
+python = "~3.9"
+pydantic = "1.10.6"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "1.1.1"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+[tool.mypy]
+strict = true
+files = "src"
+mypy_path = "src/"
+namespace_packages = true
+explicit_package_bases = true
+follow_imports = "silent"
+ignore_missing_imports = true
+exclude = "(resources/.*)"
+
+plugins = [
+    "pydantic.mypy"
+]
+
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+
+# for strict mypy: (this is the tricky one :-))
+disallow_untyped_defs = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+[[tool.poetry.source]]
+name = "milenio"
+url = "https://gitlab.milenio.capital/api/v4/groups/6/-/packages/pypi/simple/"
